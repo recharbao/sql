@@ -1,0 +1,42 @@
+CREATE TABLE Accounts(
+  id INT PRIMARY KEY,
+  name VARCHAR(100)
+)ENGINE=InnoDB DEFAULT CHARSET=utf8;
+
+CREATE TABLE Logins(
+  id INT,
+  login_date DATE
+)ENGINE=InnoDB DEFAULT CHARSET=utf8;
+
+INSERT INTO Accounts VALUES(1, 'Winston');
+INSERT INTO Accounts VALUES(7, 'Jonathan');
+
+INSERT INTO Logins VALUES(7, '2020-05-30');
+INSERT INTO Logins VALUES(1, '2020-05-30');
+INSERT INTO Logins VALUES(7, '2020-05-31');
+INSERT INTO Logins VALUES(7, '2020-06-01');
+INSERT INTO Logins VALUES(7, '2020-06-02');
+INSERT INTO Logins VALUES(7, '2020-06-02');
+INSERT INTO Logins VALUES(7, '2020-06-03');
+INSERT INTO Logins VALUES(1, '2020-06-07');
+INSERT INTO Logins VALUES(7, '2020-06-10');
+
+
+SHOW TABLES;
+SELECT * FROM Accounts;
+SELECT * FROM Logins;
+
+SELECT *
+FROM Accounts a
+JOIN Logins l1 USING(id)
+JOIN Logins l2 ON l1.id = l2.id
+
+
+
+SELECT DISTINCT a.*
+FROM Accounts a
+JOIN Logins l1 USING(id)
+JOIN Logins l2 ON l1.id = l2.id
+AND DATEDIFF(l2.login_date, l1.login_date) BETWEEN 0 AND 4
+GROUP BY a.id, a.name, l1.login_date
+HAVING COUNT(DISTINCT l2.login_date) = 5;
