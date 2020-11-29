@@ -1,0 +1,1 @@
+ SELECT a.customer_id, customer_name FROM Customers a LEFT JOIN Orders b ON a.customer_id = b.customer_id GROUP BY a.customer_id HAVING SUM(product_name = 'A') > 0 AND SUM(product_name = 'B') > 0 AND SUM(product_name = 'C') = 0
